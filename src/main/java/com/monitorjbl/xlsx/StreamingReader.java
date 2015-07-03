@@ -334,6 +334,39 @@ public class StreamingReader implements Iterable<Row>, Closeable {
 	    }
 	}
 
+	/**
+	 * Reads a given {@code OPCPackage} and returns a new instance of
+	 * {@code StreamingReader}.
+	 *
+	 * @param f
+	 *            file to read in
+	 * @return built streaming reader instance
+	 * @throws com.monitorjbl.xlsx.exceptions.OpenException
+	 *             if there is an issue opening the file
+	 * @throws com.monitorjbl.xlsx.exceptions.ReadException
+	 *             if there is an issue reading the file
+	 */
+	public StreamingReader read(OPCPackage pkg) {
+	    try {
+		XSSFReader reader = new XSSFReader(pkg);
+		SharedStringsTable sst = reader.getSharedStringsTable();
+
+		InputStream sheet = findSheet(reader);
+		if (sheet == null) {
+		    throw new MissingSheetException("Unable to find sheet at index [" + sheetIndex + "]");
+		}
+
+		XMLEventReader parser = XMLInputFactory.newInstance().createXMLEventReader(sheet);
+		return new StreamingReader(sst, parser, rowCacheSize);
+	    } catch (IOException e) {
+		throw new OpenException("Failed to open file", e);
+	    } catch (OpenXML4JException e) {
+		throw new ReadException("Unable to read workbook", e);
+	    } catch (XMLStreamException e) {
+		throw new ReadException("Unable to read workbook", e);
+	    }
+	}
+
 	InputStream findSheet(XSSFReader reader) throws IOException, InvalidFormatException {
 	    int index = sheetIndex;
 	    if (sheetName != null) {

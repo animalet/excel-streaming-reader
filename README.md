@@ -1,3 +1,7 @@
+# Excel Streaming Reader (legacy)
+
+This is a port to Java 6 of [Excel Streaming Reader](https://github.com/monitorjbl/excel-streaming-reader), which was created for Java 7+. The capabilities remain the same but in a legacy flavour.
+
 # Excel Streaming Reader
 
 If you've used [Apache POI](http://poi.apache.org) in the past to read in Excel files, you probably noticed that it's not very memory efficient. Reading in an entire workbook will cause a severe memory usage spike, which can wreak havoc on a server. 
