@@ -1,5 +1,6 @@
 package com.monitorjbl.xlsx.exceptions;
 
+@SuppressWarnings("serial")
 public class NotSupportedException extends RuntimeException {
 
   public NotSupportedException() {

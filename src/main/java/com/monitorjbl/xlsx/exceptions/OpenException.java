@@ -1,5 +1,6 @@
 package com.monitorjbl.xlsx.exceptions;
 
+@SuppressWarnings("serial")
 public class OpenException extends RuntimeException {
 
   public OpenException() {

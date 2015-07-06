@@ -1,5 +1,6 @@
 package com.monitorjbl.xlsx.exceptions;
 
+@SuppressWarnings("serial")
 public class ReadException extends RuntimeException {
 
   public ReadException() {
